@@ -1,41 +1,54 @@
-var katzDeli = []
+katz_deli = ["Moshe", "Fayge", "Rivki"]
 
-function currentLine(line){
-  if(!line.length) {
-    return "The line is currently empty.";
-  }
-  var lineNamesandNumbers = [];
-  
-  for(var i=0; i<line.length; i++) {
-    lineNamesandNumbers.push(i+1 + ". "+ line[i]);
-  }
-  console.log("The line is currently: " + lineNamesandNumbers)
-  return "The line is currently: " + lineNamesandNumbers.join(', ');
-}
 
-function nowServing(line) {
-  if(!line.length) {
-    console.log("There is nobody waiting to be served!")
-    return "There is nobody waiting to be served!"
-  } else {
-    //console.log("Currently serving " + line.shift());
-    return "Currently serving " + line.shift();
-  }
-}
+def line(array) # this was the one I figured out
+  if array.length >= 1
+    nuarray = []
+    counter = 1 
+    array.each do |name|
+      nuarray.push("#{counter}. #{name}")
+      counter += 1 
+    end 
+    puts "The line is currently: #{nuarray.join(" ")}"
+  else
+    puts "The line is currently empty."
+  end
+end
 
-function takeANumber(line, name){
-  line.push(name);
+line(katz_deli)
+
+def line_simple(array) # this one follows the same mechanics as learn.co
+  current_line = "The simple line is currently:"
+  array.each.with_index(1) do |value, indexemus|  
+  # "each.with_index" is the method...must use "index"
+    current_line << " #{indexemus}. #{value},"    
+    # "indexemus" is used to illustrate this variable can be different from "index"
+  end 
+  puts current_line
+end 
   
-  console.log("Welcome, " + name + ". You are number " + line.length + " in line.");
-  
-  return "Welcome, " + name + ". You are number " + line.length + " in line."
-}
-takeANumber(katzDeli, "Ada")
-takeANumber(katzDeli, "Grace")
-takeANumber(katzDeli, "Kent")
-currentLine(katzDeli);
-nowServing(katzDeli);
-takeANumber(katzDeli, "Matz"); 
-currentLine(katzDeli); 
-nowServing(katzDeli);
-currentLine(katzDeli)
+line_simple(katz_deli)  
+#[:foo, :bar, :baz].each.with_index(1) do |value, index|
+#    puts "#{index}: #{value}"
+#end
+
+
+
+def take_a_number(line, new_person)
+  line.push(new_person) # could say: "line << new_person"
+  puts "Welcome, #{new_person}. You are number #{line.length} in line."
+end
+
+take_a_number(katz_deli, "Fyvish")
+
+def now_serving(line)
+  if line.length == 0 # could say: "if deli.empty?"
+    puts"There is nobody waiting to be served!"
+  else
+    puts "Currently serving #{line[0]}." # could say: "Currently serving #{line.first}."
+    line.shift # this works in the IDE but no on repl.it
+  end
+end
+
+puts now_serving(katz_deli)
+puts katz_deli
